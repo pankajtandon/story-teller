@@ -1,5 +1,5 @@
 
-# from dotenv import find_dotenv, load_dotenv
+from dotenv import find_dotenv, load_dotenv
 import streamlit as st
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
@@ -16,7 +16,7 @@ import requests
 from io import BytesIO
 
 
-# load_dotenv(find_dotenv())
+load_dotenv(find_dotenv())
 
 PAGE_CONFIG = {"page_title": "Hello baby!", "page_icon": "smiley", "layout": "centered"}
 st.set_page_config(**PAGE_CONFIG)
@@ -33,23 +33,6 @@ genre_choice = st.selectbox(
 
 debug = st.checkbox("Would you like to see debug info?")
 
-if (uploaded_file is not None):
-  bytes = uploaded_file.getvalue()
-  with open(uploaded_file.name, "wb") as file:
-    file.write(bytes)
-  
-  st.image(uploaded_file, caption = "Uploaded Image", use_column_width = True)
-
-
-image_to_text = pipeline("image-to-text", model = "Salesforce/blip-image-captioning-base")
-# image_to_text = pipeline("image-to-text", model = "nlpconnect/vit-gpt2-image-captioning")
-
-text = image_to_text(uploaded_file)
-# text = image_to_text(img)
-
-print(text[0]["generated_text"])
-
-
 def story_teller(scenario, genre):
   template = """
   You are a great story teller! Based on the scenario below, tell me a story of about 25 words that is interesting and {genre}!
@@ -64,9 +47,25 @@ def story_teller(scenario, genre):
   story = story_teller_chain.predict(scenario = scenario, genre = genre)
   return story
 
-story = story_teller(scenario = text[0]["generated_text"], genre = genre_choice)
 
-st.write("Here's your ", genre_choice, " story")
-print(story)
-st.write(story)
+if (uploaded_file is not None):
+  bytes = uploaded_file.getvalue()
+  with open(uploaded_file.name, "wb") as file:
+    file.write(bytes)
+  
+  st.image(uploaded_file, caption = "Uploaded Image", use_column_width = True)
+  image_to_text = pipeline("image-to-text", model = "Salesforce/blip-image-captioning-base")
+  # image_to_text = pipeline("image-to-text", model = "nlpconnect/vit-gpt2-image-captioning")
+
+  text = image_to_text(uploaded_file.name)
+  # text = image_to_text(img)
+
+  print(text[0]["generated_text"])
+
+
+  story = story_teller(scenario = text[0]["generated_text"], genre = genre_choice)
+
+  st.write("Here's your ", genre_choice, " story")
+  print(story)
+  st.write(story)
 
