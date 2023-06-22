@@ -1,5 +1,5 @@
 
-from dotenv import find_dotenv, load_dotenv
+# from dotenv import find_dotenv, load_dotenv
 import streamlit as st
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
@@ -16,7 +16,7 @@ import requests
 from io import BytesIO
 
 
-load_dotenv(find_dotenv())
+# load_dotenv(find_dotenv())
 
 PAGE_CONFIG = {"page_title": "Hello baby!", "page_icon": "smiley", "layout": "centered"}
 st.set_page_config(**PAGE_CONFIG)
