@@ -44,7 +44,7 @@ if (uploaded_file is not None):
 image_to_text = pipeline("image-to-text", model = "Salesforce/blip-image-captioning-base")
 # image_to_text = pipeline("image-to-text", model = "nlpconnect/vit-gpt2-image-captioning")
 
-text = image_to_text(uploaded_file.name)
+text = image_to_text(uploaded_file)
 # text = image_to_text(img)
 
 print(text[0]["generated_text"])
