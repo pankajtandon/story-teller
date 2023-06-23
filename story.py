@@ -69,3 +69,14 @@ if (uploaded_file is not None):
   print(story)
   st.write(story)
 
+  # Now that we have a story, lets make an image out of it!
+  # Not working so commenting out for now 
+  # (asking for a config.json for the model that I am not sure how to generate)
+  
+  # text_to_image = pipeline("text-to-image", model = "SG161222/Realistic_Vision_V1.4")
+  # image_of_story = text_to_image(story).images[0]
+
+  # image_of_story.save("full_story.png")
+
+
+
